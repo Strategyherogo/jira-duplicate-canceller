@@ -1,0 +1,42 @@
+name: jira-duplicate-canceller
+region: nyc
+
+# Worker configuration - runs continuously
+workers:
+  - name: duplicate-checker
+    github:
+      repo: Strategyherogo/jira-duplicate-canceller
+      branch: main
+      deploy_on_push: true
+
+    # Use the smallest instance size
+    instance_count: 1
+    instance_size_slug: basic-xxs
+
+    # Run the worker script
+    run_command: bash run-worker.sh
+
+    # Environment variables (you'll need to add these via CLI or dashboard)
+    envs:
+      - key: JIRA_SITE
+        scope: RUN_TIME
+        type: SECRET
+        value: ${JIRA_SITE}
+
+      - key: JIRA_EMAIL
+        scope: RUN_TIME
+        type: SECRET
+        value: ${JIRA_EMAIL}
+
+      - key: JIRA_API_TOKEN
+        scope: RUN_TIME
+        type: SECRET
+        value: ${JIRA_API_TOKEN}
+
+      - key: PROJECT_NAME
+        scope: RUN_TIME
+        value: "NVSTRS"
+
+    # Health check (optional)
+    health_check:
+      initial_delay_seconds: 60
