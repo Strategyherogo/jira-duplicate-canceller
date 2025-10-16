@@ -56,4 +56,4 @@ dmypy.json
 
 # Local configuration
 config.local.json
-credentials.json
+credentials.jsondeploy-spec.yaml
