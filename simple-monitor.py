@@ -66,7 +66,7 @@ def check_for_old_duplicates():
 
     # Get recent issues from NVSTRS
     jql = f"project = NVSTRS AND created >= -1d AND status != Cancelled ORDER BY created DESC"
-    url = f"{JIRA_URL}/rest/api/3/search"
+    url = f"{JIRA_URL}/rest/api/3/search/jql"
     params = {"jql": jql, "maxResults": 100, "fields": "summary,created,status,reporter"}
 
     try:
